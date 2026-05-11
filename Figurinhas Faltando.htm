@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figurinhas Faltando</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    font-family: 'Source Sans 3', sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    color: #f5c518;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .status-bar {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    height: 20px;
+  }
+
+  .status-ok { color: #5cb85c; }
+  .status-saving { color: #f5c518; }
+  .status-err { color: #e74c3c; }
+
+  .hint {
+    text-align: center;
+    color: #555;
+    font-size: 0.8rem;
+    margin-bottom: 24px;
+  }
+
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .search-bar input {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #f0f0f0;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    padding: 10px 16px;
+    width: 100%;
+    max-width: 400px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-bar input:focus { border-color: #f5c518; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.2s, background 0.3s;
+  }
+
+  .card.completa {
+    border-color: #2a5a2a;
+    background: #111811;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .flag {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f5c518;
+    letter-spacing: 2px;
+  }
+
+  .card.completa .flag { color: #5cb85c; }
+
+  .count {
+    background: #f5c518;
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'Oswald', sans-serif;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    min-width: 52px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .card.completa .count { background: #5cb85c; }
+
+  .nums {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .num {
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: #ddd;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 5px 8px;
+    min-width: 34px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .num:hover { border-color: #f5c518; color: #f5c518; }
+
+  .num.marcado {
+    background: #111;
+    border-color: #333;
+    color: #444;
+    text-decoration: line-through;
+  }
+
+  .num.marcado::after {
+    content: '✓';
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background: #5cb85c;
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 900;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 14px;
+  }
+
+  .completa-badge {
+    display: none;
+    font-size: 0.8rem;
+    color: #5cb85c;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .card.completa .completa-badge { display: block; }
+
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 30px auto 14px;
+    max-width: 1200px;
+    border-left: 3px solid #f5c518;
+    padding-left: 10px;
+  }
+
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    gap: 16px;
+  }
+
+  .loading-overlay p {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #222;
+    border-top-color: #f5c518;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <p>Carregando figurinhas...</p>
+</div>
+
+<h1>⚽ Figurinhas Faltando</h1>
+<p class="subtitle">Copa do Mundo — Lista para Troca</p>
+<div class="status-bar"><span id="status" class="status-ok">✓ Sincronizado</span></div>
+<p class="hint">Clique em um número para marcar como conseguido ✓</p>
+
+<div class="search-bar">
+  <input type="text" id="search" placeholder="Buscar seleção..." oninput="filtrar()">
+</div>
+
+<p class="section-title">Seleções</p>
+<div class="grid" id="grid"></div>
+
+<script>
+const API_KEY = '$2a$10$qPAJvieclOgXZo3XwNJ7DeIPyGskLCdyKvo2P9Yz4CfHLinBgmdZy';
+const BIN_NAME = 'figurinhas-lagostinne';
+let BIN_ID = localStorage.getItem('figurinhas_bin_id') || null;
+let marcados = {};
+let saveTimer = null;
+
+const dados = [
+  { id: "MEX", nome: "México", nums: [1,3,7,8,11,12,13,16,18,20] },
+  { id: "RSA", nome: "África do Sul", nums: [1,3,6,10,12,13,15,16,17] },
+  { id: "KOR", nome: "Coreia do Sul", nums: [2,3,5,6,7,8,9,13,14,17,18] },
+  { id: "CZE", nome: "República Tcheca", nums: [2,3,4,5,6,7,8,9,10,12,13,15,17,18,19,20] },
+  { id: "CAN", nome: "Canadá", nums: [1,4,8,9,12,13,14,15,18,20] },
+  { id: "BIH", nome: "Bósnia-Herzegovina", nums: [1,2,3,4,5,6,7,10,13,14,15,16,17,18,19,20] },
+  { id: "QAT", nome: "Catar", nums: [1,3,5,7,9,11,12,13,14,15,18,19,20] },
+  { id: "SUI", nome: "Suíça", nums: [1,2,4,5,6,7,8,9,10,11,13,14,16,17,18,19,20] },
+  { id: "BRA", nome: "Brasil", nums: [1,3,4,6,8,10,11,13,15,16,17] },
+  { id: "MAR", nome: "Marrocos", nums: [1,3,4,5,7,8,9,10,11,13,14,15] },
+  { id: "HAI", nome: "Haiti", nums: [1,3,4,5,7,8,10,11,12,14,16,17,18] },
+  { id: "SCO", nome: "Escócia", nums: [1,3,4,6,7,9,10,11,12,14,15,18] },
+  { id: "USA", nome: "Estados Unidos", nums: [1,3,4,5,7,8,11,12,13,14,15,16,18,19,20] },
+  { id: "PAR", nome: "Paraguai", nums: [1,3,5,8,9,12,14,16,17,18,20] },
+  { id: "AUS", nome: "Austrália", nums: [1,3,5,7,12,13,15,16,17,19] },
+  { id: "TUR", nome: "Turquia", nums: [1,2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] },
+  { id: "GER", nome: "Alemanha", nums: [1,3,4,5,7,8,9,10,11,13,14,15,16,18,19] },
+  { id: "CUW", nome: "Curaçao", nums: [1,5,6,9,10,13,14,17,19] },
+  { id: "CIV", nome: "Costa do Marfim", nums: [1,3,4,7,12,15,17] },
+  { id: "ECU", nome: "Equador", nums: [1,2,4,6,8,10,11,12,13,15,16,17,19,20] },
+  { id: "NED", nome: "Holanda", nums: [1,5,7,11,12,13,14,16,18,19,20] },
+  { id: "JPN", nome: "Japão", nums: [3,4,6,7,8,9,10,12,13,15,16,19,20] },
+  { id: "SWE", nome: "Suécia", nums: [1,2,4,5,6,7,9,10,11,14,15,16,17,18,19,20] },
+  { id: "TUN", nome: "Tunísia", nums: [1,2,3,4,5,6,7,8,9,10,11,13,16,17,18,19,20] },
+  { id: "BEL", nome: "Bélgica", nums: [2,3,4,5,6,9,10,11,12,13,14,15,19] },
+  { id: "EGY", nome: "Egito", nums: [1,2,4,5,6,8,9,12,13,15,17,18,19,20] },
+  { id: "IRN", nome: "Irã", nums: [1,2,3,6,7,8,10,11,12,13,16,17,20] },
+  { id: "NZL", nome: "Nova Zelândia", nums: [2,3,4,5,6,7,8,9,10,11,13,14,15,16,18,19,20] },
+  { id: "ESP", nome: "Espanha", nums: [5,6,8,12,13,14,17,18,19] },
+  { id: "CPU", nome: "CPU", nums: [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,19,20] },
+  { id: "KSA", nome: "Arábia Saudita", nums: [1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,20] },
+  { id: "URU", nome: "Uruguai", nums: [2,3,4,5,6,7,8,9,10,11,13,15,16,18,19,20] },
+  { id: "FRA", nome: "França", nums: [2,3,4,5,6,8,9,10,12,13,15,16,19,20] },
+  { id: "SEN", nome: "Senegal", nums: [3,8,9,10,16,19,20] },
+  { id: "IRQ", nome: "Iraque", nums: [1,3,5,6,7,8,10,11,15,16,17,18,19] },
+  { id: "NOR", nome: "Noruega", nums: [3,4,5,6,7,8,9,11,12,13,14,16,17,18,20] },
+  { id: "ARG", nome: "Argentina", nums: [2,3,6,9,13,18] },
+  { id: "ALG", nome: "Argélia", nums: [1,2,3,5,6,7,12,13,14,16,18,20] },
+  { id: "AUT", nome: "Áustria", nums: [1,2,4,10,11,12,13,14,16,18,20] },
+  { id: "JOR", nome: "Jordânia", nums: [1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] },
+  { id: "POR", nome: "Portugal", nums: [2,3,5,7,9,11,14,16,20] },
+  { id: "COD", nome: "Congo", nums: [1,2,3,4,6,7,8,9,10,12,13,14,15,16,17,18,19,20] },
+  { id: "UZB", nome: "Uzbequistão", nums: [1,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,20] },
+  { id: "COL", nome: "Colômbia", nums: [1,2,4,5,7,8,10,11,12,13,14,15,16,17,18,19] },
+  { id: "ENG", nome: "Inglaterra", nums: [2,6,7,10,11,12,13,16,17,19,20] },
+  { id: "CRO", nome: "Croácia", nums: [1,6,8,13,15,16,17,19] },
+  { id: "GHA", nome: "Gana", nums: [1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,18,19,20] },
+  { id: "PAN", nome: "Panamá", nums: [1,2,4,5,6,8,10,11,14,16,18,19,20] },
+  { id: "FWC", nome: "FIFA World Cup History", nums: [9,10,11,12,14,15,16,17] },
+  { id: "CC", nome: "Copa do Mundo (CC)", nums: [1,2,3,4,5,6,7,8,9,10,11,12,13,14] },
+  { id: "OO", nome: "Especiais Douradas", nums: [2,3,5,6,7,8] },
+];
+
+function setStatus(msg, tipo) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status-' + tipo;
+}
+
+async function carregarDados() {
+  if (BIN_ID) {
+    try {
+      const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Access-Key': API_KEY }
+      });
+      if (r.ok) {
+        const d = await r.json();
+        marcados = d.record || {};
+        return;
+      }
+    } catch(e) {}
+  }
+  // Criar bin novo
+  try {
+    const r = await fetch('https://api.jsonbin.io/v3/b', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Key': API_KEY,
+        'X-Bin-Name': BIN_NAME,
+        'X-Bin-Private': 'false'
+      },
+      body: JSON.stringify({})
+    });
+    if (r.ok) {
+      const d = await r.json();
+      BIN_ID = d.metadata.id;
+      localStorage.setItem('figurinhas_bin_id', BIN_ID);
+      marcados = {};
+    }
+  } catch(e) {
+    setStatus('⚠ Sem conexão — salvando local', 'err');
+  }
+}
+
+async function salvarNuvem() {
+  if (!BIN_ID) return;
+  setStatus('Salvando...', 'saving');
+  try {
+    const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Key': API_KEY
+      },
+      body: JSON.stringify(marcados)
+    });
+    if (r.ok) {
+      setStatus('✓ Sincronizado', 'ok');
+    } else {
+      setStatus('⚠ Erro ao salvar', 'err');
+    }
+  } catch(e) {
+    setStatus('⚠ Sem conexão', 'err');
+  }
+}
+
+function agendarSalvar() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(salvarNuvem, 1200);
+}
+
+function atualizarCard(selId, cardEl, countEl) {
+  const sel = dados.find(s => s.id === selId);
+  if (!sel) return;
+  const marcadosCount = sel.nums.filter(n => marcados[selId + '_' + n]).length;
+  const restando = sel.nums.length - marcadosCount;
+  countEl.textContent = restando === 0 ? '✓ ok!' : restando + ' fig.';
+  cardEl.classList.toggle('completa', restando === 0);
+}
+
+function criarCard(s) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const header = document.createElement('div');
+  header.className = 'card-header';
+
+  const flag = document.createElement('span');
+  flag.className = 'flag';
+  flag.textContent = s.id + ' — ' + s.nome;
+
+  const count = document.createElement('span');
+  count.className = 'count';
+
+  header.appendChild(flag);
+  header.appendChild(count);
+  card.appendChild(header);
+
+  const numsDiv = document.createElement('div');
+  numsDiv.className = 'nums';
+
+  s.nums.forEach(n => {
+    const span = document.createElement('span');
+    span.className = 'num';
+    span.textContent = n;
+    if (marcados[s.id + '_' + n]) span.classList.add('marcado');
+    span.addEventListener('click', () => {
+      const key = s.id + '_' + n;
+      if (marcados[key]) {
+        delete marcados[key];
+        span.classList.remove('marcado');
+      } else {
+        marcados[key] = true;
+        span.classList.add('marcado');
+      }
+      atualizarCard(s.id, card, count);
+      agendarSalvar();
+    });
+    numsDiv.appendChild(span);
+  });
+
+  card.appendChild(numsDiv);
+
+  const badge = document.createElement('p');
+  badge.className = 'completa-badge';
+  badge.textContent = '✓ Todas conseguidas!';
+  card.appendChild(badge);
+
+  atualizarCard(s.id, card, count);
+  return card;
+}
+
+function render(lista) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  lista.forEach(s => grid.appendChild(criarCard(s)));
+}
+
+function filtrar() {
+  const q = document.getElementById('search').value.toLowerCase();
+  render(dados.filter(s => s.id.toLowerCase().includes(q) || s.nome.toLowerCase().includes(q)));
+}
+
+(async () => {
+  await carregarDados();
+  document.getElementById('loading').style.display = 'none';
+  render(dados);
+})();
+</script>
+</body>
+</html>
