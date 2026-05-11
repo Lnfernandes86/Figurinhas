@@ -453,6 +453,7 @@ function filtrar() {
 
 (async () => {
   await carregarDados();
+  console.log('BIN_ID:', BIN_ID, 'marcados:', marcados);
   document.getElementById('loading').style.display = 'none';
   render(dados);
 })();
