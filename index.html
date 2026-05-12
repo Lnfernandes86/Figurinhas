@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figurinhas Faltando</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Figurinhas Faltando</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap');
 
@@ -215,10 +215,7 @@
     gap: 16px;
   }
 
-  .loading-overlay p {
-    color: #888;
-    font-size: 0.9rem;
-  }
+  .loading-overlay p { color: #888; font-size: 0.9rem; }
 
   .spinner {
     width: 36px;
@@ -258,27 +255,27 @@ let marcados = {};
 let saveTimer = null;
 
 const dados = [
-  { id: "MEX", nome: "México", nums: [1,3,7,8,11,12,13,16,18,20] },
+  { id: "MEX", nome: "México", nums: [3,7,8,11,12,13,16,18,20] },
   { id: "RSA", nome: "África do Sul", nums: [1,3,6,10,12,13,15,16,17] },
   { id: "KOR", nome: "Coreia do Sul", nums: [2,3,5,6,7,8,9,13,14,17,18] },
   { id: "CZE", nome: "República Tcheca", nums: [2,3,4,5,6,7,8,9,10,12,13,15,17,18,19,20] },
   { id: "CAN", nome: "Canadá", nums: [1,4,8,9,12,13,14,15,18,20] },
-  { id: "BIH", nome: "Bósnia-Herzegovina", nums: [1,2,3,4,5,6,7,10,13,14,15,16,17,18,19,20] },
+  { id: "BIH", nome: "Bósnia-Herzegovina", nums: [1,2,3,4,5,6,7,10,13,14,15,16,17,18,20] },
   { id: "QAT", nome: "Catar", nums: [1,3,5,7,9,11,12,13,14,15,18,19,20] },
-  { id: "SUI", nome: "Suíça", nums: [1,2,4,5,6,7,8,9,10,11,13,14,16,17,18,19,20] },
+  { id: "SUI", nome: "Suíça", nums: [1,2,4,6,7,8,9,10,11,13,14,16,17,18,19,20] },
   { id: "BRA", nome: "Brasil", nums: [1,3,4,6,8,10,11,13,15,16,17] },
   { id: "MAR", nome: "Marrocos", nums: [1,3,4,5,7,8,9,10,11,13,14,15] },
-  { id: "HAI", nome: "Haiti", nums: [1,3,4,5,7,8,10,11,12,14,16,17,18] },
+  { id: "HAI", nome: "Haiti", nums: [1,4,5,8,10,12,14,17,18] },
   { id: "SCO", nome: "Escócia", nums: [1,3,4,6,7,9,10,11,12,14,15,18] },
   { id: "USA", nome: "Estados Unidos", nums: [1,3,4,5,7,8,11,12,13,14,15,16,18,19,20] },
-  { id: "PAR", nome: "Paraguai", nums: [1,3,5,8,9,12,14,16,17,18,20] },
-  { id: "AUS", nome: "Austrália", nums: [1,3,5,7,12,13,15,16,17,19] },
+  { id: "PAR", nome: "Paraguai", nums: [1,5,8,9,12,14,16,17,18,20] },
+  { id: "AUS", nome: "Austrália", nums: [1,3,7,12,15,16,17,19] },
   { id: "TUR", nome: "Turquia", nums: [1,2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] },
-  { id: "GER", nome: "Alemanha", nums: [1,3,4,5,7,8,9,10,11,13,14,15,16,18,19] },
+  { id: "GER", nome: "Alemanha", nums: [1,3,4,5,7,8,9,10,11,13,14,15,18,19] },
   { id: "CUW", nome: "Curaçao", nums: [1,5,6,9,10,13,14,17,19] },
   { id: "CIV", nome: "Costa do Marfim", nums: [1,3,4,7,12,15,17] },
   { id: "ECU", nome: "Equador", nums: [1,2,4,6,8,10,11,12,13,15,16,17,19,20] },
-  { id: "NED", nome: "Holanda", nums: [1,5,7,11,12,13,14,16,18,19,20] },
+  { id: "NED", nome: "Holanda", nums: [1,7,11,12,13,14,16,18,19,20] },
   { id: "JPN", nome: "Japão", nums: [3,4,6,7,8,9,10,12,13,15,16,19,20] },
   { id: "SWE", nome: "Suécia", nums: [1,2,4,5,6,7,9,10,11,14,15,16,17,18,19,20] },
   { id: "TUN", nome: "Tunísia", nums: [1,2,3,4,5,6,7,8,9,10,11,13,16,17,18,19,20] },
@@ -286,26 +283,27 @@ const dados = [
   { id: "EGY", nome: "Egito", nums: [1,2,4,5,6,8,9,12,13,15,17,18,19,20] },
   { id: "IRN", nome: "Irã", nums: [1,2,3,6,7,8,10,11,12,13,16,17,20] },
   { id: "NZL", nome: "Nova Zelândia", nums: [2,3,4,5,6,7,8,9,10,11,13,14,15,16,18,19,20] },
-  { id: "ESP", nome: "Espanha", nums: [5,6,8,12,13,14,17,18,19] },
+  { id: "ESP", nome: "Espanha", nums: [5,6,8,12,13,14,17,18] },
   { id: "CPU", nome: "CPU", nums: [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,19,20] },
-  { id: "KSA", nome: "Arábia Saudita", nums: [1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,20] },
-  { id: "URU", nome: "Uruguai", nums: [2,3,4,5,6,7,8,9,10,11,13,15,16,18,19,20] },
-  { id: "FRA", nome: "França", nums: [2,3,4,5,6,8,9,10,12,13,15,16,19,20] },
-  { id: "SEN", nome: "Senegal", nums: [3,8,9,10,16,19,20] },
+  { id: "CPV", nome: "Cabo Verde", nums: [1,3,4,5,7,8,11,12,13,14,16,20] },
+  { id: "KSA", nome: "Arábia Saudita", nums: [1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,20] },
+  { id: "URU", nome: "Uruguai", nums: [2,3,4,5,6,7,8,9,10,11,13,15,18,19,20] },
+  { id: "FRA", nome: "França", nums: [2,3,5,6,9,13,15,16,19,20] },
+  { id: "SEN", nome: "Senegal", nums: [3,9,10,19] },
   { id: "IRQ", nome: "Iraque", nums: [1,3,5,6,7,8,10,11,15,16,17,18,19] },
   { id: "NOR", nome: "Noruega", nums: [3,4,5,6,7,8,9,11,12,13,14,16,17,18,20] },
-  { id: "ARG", nome: "Argentina", nums: [2,3,6,9,13,18] },
-  { id: "ALG", nome: "Argélia", nums: [1,2,3,5,6,7,12,13,14,16,18,20] },
+  { id: "ARG", nome: "Argentina", nums: [2,3,6,9,13] },
+  { id: "ALG", nome: "Argélia", nums: [1,2,3,5,7,12,13,14,16,20] },
   { id: "AUT", nome: "Áustria", nums: [1,2,4,10,11,12,13,14,16,18,20] },
-  { id: "JOR", nome: "Jordânia", nums: [1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] },
-  { id: "POR", nome: "Portugal", nums: [2,3,5,7,9,11,14,16,20] },
-  { id: "COD", nome: "Congo", nums: [1,2,3,4,6,7,8,9,10,12,13,14,15,16,17,18,19,20] },
+  { id: "JOR", nome: "Jordânia", nums: [1,2,4,5,7,9,11,13,14,16,18] },
+  { id: "POR", nome: "Portugal", nums: [2,3,5,7,9,14] },
+  { id: "COD", nome: "Congo", nums: [1,2,3,4,7,8,9,10,12,13,14,15,16,17,18,19,20] },
   { id: "UZB", nome: "Uzbequistão", nums: [1,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,20] },
   { id: "COL", nome: "Colômbia", nums: [1,2,4,5,7,8,10,11,12,13,14,15,16,17,18,19] },
   { id: "ENG", nome: "Inglaterra", nums: [2,6,7,10,11,13,16,17,19,20] },
   { id: "CRO", nome: "Croácia", nums: [1,6,8,13,15,16,17,19] },
-  { id: "GHA", nome: "Gana", nums: [1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,18,19,20] },
-  { id: "PAN", nome: "Panamá", nums: [1,2,4,5,6,8,10,11,14,16,18,19,20] },
+  { id: "GHA", nome: "Gana", nums: [1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,19,20] },
+  { id: "PAN", nome: "Panamá", nums: [1,2,4,6,8,10,11,14,16,18,19,20] },
   { id: "FWC", nome: "FIFA World Cup History", nums: [9,10,11,12,14,15,16,17] },
   { id: "CC", nome: "Copa do Mundo (CC)", nums: [1,2,3,4,5,6,7,8,9,10,11,12,13,14] },
   { id: "OO", nome: "Especiais Douradas", nums: [2,3,5,6,7,8] },
