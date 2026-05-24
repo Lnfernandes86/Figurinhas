@@ -8,270 +8,53 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: #0a0a0a;
-    color: #f0f0f0;
-    font-family: 'Source Sans 3', sans-serif;
-    padding: 20px;
-    min-height: 100vh;
-  }
-
-  h1 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.3rem;
-    color: #f5c518;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-align: center;
-    margin-bottom: 6px;
-  }
-
-  .subtitle {
-    text-align: center;
-    color: #888;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    
-  }
-
-  .totalizador {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    
-    flex-wrap: wrap;
-  }
-
-  .total-box {
-    background: #141414;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 4px 12px;
-    text-align: center;
-    min-width: 90px;
-  }
-
-  .total-box .valor {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #f5c518;
-  }
-
-  .total-box .label {
-    font-size: 0.62rem;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
+  body { background: #0a0a0a; color: #f0f0f0; font-family: 'Source Sans 3', sans-serif; padding: 20px; min-height: 100vh; }
+  h1 { font-family: 'Oswald', sans-serif; font-size: 1.3rem; color: #f5c518; text-transform: uppercase; letter-spacing: 3px; text-align: center; margin-bottom: 6px; }
+  .subtitle { display: none; }
+  .totalizador { display: flex; justify-content: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .total-box { background: #141414; border: 1px solid #333; border-radius: 8px; padding: 4px 12px; text-align: center; min-width: 90px; }
+  .total-box .valor { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: #f5c518; }
+  .total-box .label { font-size: 0.62rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
   .total-box.conseguidas .valor { color: #5cb85c; }
-
-  .status-bar {
-    text-align: center;
-    font-size: 0.8rem;
-    margin-bottom: 16px;
-    height: 20px;
-  }
-
+  .status-bar { text-align: center; font-size: 0.8rem; margin-bottom: 8px; height: 20px; }
   .status-ok { color: #5cb85c; }
   .status-saving { color: #f5c518; }
   .status-err { color: #e74c3c; }
-
-  .hint {
-    text-align: center;
-    color: #555;
-    font-size: 0.8rem;
-    margin-bottom: 24px;
-  }
-
-  .search-bar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-
-  .search-bar input {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 6px;
-    color: #f0f0f0;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.95rem;
-    padding: 10px 16px;
-    width: 100%;
-    max-width: 400px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
+  .hint { text-align: center; color: #555; font-size: 0.8rem; margin-bottom: 16px; }
+  .search-bar { display: flex; justify-content: center; margin-bottom: 20px; }
+  .search-bar input { background: #1a1a1a; border: 1px solid #333; border-radius: 6px; color: #f0f0f0; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; padding: 10px 16px; width: 100%; max-width: 400px; outline: none; transition: border-color 0.2s; }
   .search-bar input:focus { border-color: #f5c518; }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .card {
-    background: #141414;
-    border: 1px solid #222;
-    border-radius: 10px;
-    padding: 16px 18px;
-    transition: border-color 0.2s, background 0.3s;
-  }
-
-  .card.completa {
-    border-color: #2a5a2a;
-    background: #111811;
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-  }
-
-  .flag {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #f5c518;
-    letter-spacing: 2px;
-  }
-
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; max-width: 1200px; margin: 0 auto; }
+  .card { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 16px 18px; transition: border-color 0.2s, background 0.3s; }
+  .card.completa { border-color: #2a5a2a; background: #111811; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .flag { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: #f5c518; letter-spacing: 2px; }
   .card.completa .flag { color: #5cb85c; }
-
-  .count {
-    background: #f5c518;
-    color: #000;
-    font-size: 0.62rem;
-    font-weight: 700;
-    font-family: 'Oswald', sans-serif;
-    padding: 2px 8px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    min-width: 52px;
-    text-align: center;
-    transition: background 0.2s;
-  }
-
+  .count { background: #f5c518; color: #000; font-size: 0.75rem; font-weight: 700; font-family: 'Oswald', sans-serif; padding: 2px 8px; border-radius: 20px; letter-spacing: 1px; min-width: 52px; text-align: center; transition: background 0.2s; }
   .card.completa .count { background: #5cb85c; }
-
-  .nums {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .num {
-    background: #1e1e1e;
-    border: 1px solid #444;
-    border-radius: 5px;
-    color: #ddd;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 5px 8px;
-    min-width: 34px;
-    text-align: center;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.15s;
-    position: relative;
-  }
-
+  .nums { display: flex; flex-wrap: wrap; gap: 6px; }
+  .num { background: #1e1e1e; border: 1px solid #444; border-radius: 5px; color: #ddd; font-size: 0.85rem; font-weight: 600; padding: 5px 8px; min-width: 34px; text-align: center; cursor: pointer; user-select: none; transition: all 0.15s; position: relative; }
   .num:hover { border-color: #f5c518; color: #f5c518; }
-
-  .num.marcado {
-    background: #111;
-    border-color: #333;
-    color: #444;
-    text-decoration: line-through;
-  }
-
-  .num.marcado::after {
-    content: '✓';
-    position: absolute;
-    top: -7px;
-    right: -7px;
-    background: #5cb85c;
-    color: #000;
-    font-size: 0.6rem;
-    font-weight: 900;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 14px;
-  }
-
-  .completa-badge {
-    display: none;
-    font-size: 0.8rem;
-    color: #5cb85c;
-    margin-top: 8px;
-    font-weight: 600;
-  }
-
+  .num.marcado { background: #111; border-color: #333; color: #444; text-decoration: line-through; }
+  .num.marcado::after { content: '✓'; position: absolute; top: -7px; right: -7px; background: #5cb85c; color: #000; font-size: 0.6rem; font-weight: 900; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 14px; }
+  .num.longo { min-width: auto; font-size: 0.78rem; padding: 5px 10px; }
+  .completa-badge { display: none; font-size: 0.8rem; color: #5cb85c; margin-top: 8px; font-weight: 600; }
   .card.completa .completa-badge { display: block; }
-
-  .section-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin: 30px auto 14px;
-    max-width: 1200px;
-    border-left: 3px solid #f5c518;
-    padding-left: 10px;
-  }
-
-  .loading-overlay {
-    position: fixed;
-    inset: 0;
-    background: #0a0a0a;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    gap: 16px;
-  }
-
+  .section-title { font-family: 'Oswald', sans-serif; font-size: 1rem; color: #888; text-transform: uppercase; letter-spacing: 3px; margin: 20px auto 14px; max-width: 1200px; border-left: 3px solid #f5c518; padding-left: 10px; }
+  .loading-overlay { position: fixed; inset: 0; background: #0a0a0a; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; gap: 16px; }
   .loading-overlay p { color: #888; font-size: 0.9rem; }
-
-  .spinner {
-    width: 36px;
-    height: 36px;
-    border: 3px solid #222;
-    border-top-color: #f5c518;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
+  .spinner { width: 36px; height: 36px; border: 3px solid #222; border-top-color: #f5c518; border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
-
 <div class="loading-overlay" id="loading">
   <div class="spinner"></div>
   <p>Carregando figurinhas...</p>
 </div>
-
 <h1>⚽ Figurinhas Faltando</h1>
 <p class="subtitle">Copa do Mundo — Lista para Troca</p>
-
 <div class="totalizador">
   <div class="total-box">
     <div class="valor" id="total-faltando">—</div>
@@ -286,17 +69,13 @@
     <div class="label">Total do álbum</div>
   </div>
 </div>
-
 <div class="status-bar"><span id="status" class="status-ok">✓ Sincronizado</span></div>
 <p class="hint">Clique em um número para marcar como conseguido ✓</p>
-
 <div class="search-bar">
   <input type="text" id="search" placeholder="Buscar seleção..." oninput="filtrar()">
 </div>
-
 <p class="section-title">Seleções</p>
 <div class="grid" id="grid"></div>
-
 <script>
 const API_KEY = '$2a$10$zG9Y12U5birvAS.CfGR5SekGQqAquEgonAQxDseG75a/V78V2A326';
 const BIN_ID = '6a0136bbc0954111d805a98c';
@@ -304,55 +83,51 @@ let marcados = {};
 let saveTimer = null;
 
 const dados = [
-  { id: "MEX", nome: "México", nums: [12,16,20] },
-  { id: "RSA", nome: "África do Sul", nums: [6,10,15,16] },
-  { id: "KOR", nome: "Coreia do Sul", nums: [2,3,6,7,8,9,13,14,18] },
-  { id: "CZE", nome: "República Tcheca", nums: [2,3,6,10,13,17,18,19] },
-  { id: "CAN", nome: "Canadá", nums: [18] },
-  { id: "BIH", nome: "Bósnia-Herzegovina", nums: [1,2,3,4,5,6,10,13,14,15,17,20] },
-  { id: "QAT", nome: "Catar", nums: [3,5,11,18,19,20] },
-  { id: "SUI", nome: "Suíça", nums: [4,9,17,18,19,20] },
-  { id: "BRA", nome: "Brasil", nums: [6,8,13,16,17] },
-  { id: "MAR", nome: "Marrocos", nums: [4,7,10,11,13] },
-  { id: "HAI", nome: "Haiti", nums: [1,4,5,8,12,14,17,18] },
-  { id: "SCO", nome: "Escócia", nums: [1,4,6,10,12] },
-  { id: "USA", nome: "Estados Unidos", nums: [1,4,5,7,8,11,12,13,14,15] },
-  { id: "PAR", nome: "Paraguai", nums: [1,8,9,12,14,17] },
-  { id: "AUS", nome: "Austrália", nums: [1,7,16,17,19] },
-  { id: "TUR", nome: "Turquia", nums: [1,2,6,7,8,10,11,13,19] },
-  { id: "GER", nome: "Alemanha", nums: [3,4,5,10,11,19] },
-  { id: "CUW", nome: "Curaçao", nums: [13] },
-  { id: "CIV", nome: "Costa do Marfim", nums: [1,3,7,17] },
-  { id: "ECU", nome: "Equador", nums: [1,8,13,16,20] },
-  { id: "NED", nome: "Holanda", nums: [7,13,18,19,20] },
-  { id: "JPN", nome: "Japão", nums: [3,8,9,12] },
-  { id: "SWE", nome: "Suécia", nums: [1,9,10,11,13,14,16,17,18,19] },
-  { id: "TUN", nome: "Tunísia", nums: [1,2,3,4,6,7,8,10,16,19,20] },
-  { id: "BEL", nome: "Bélgica", nums: [2,3,4,5,6,9,12,13,19] },
-  { id: "EGY", nome: "Egito", nums: [2,5,6,8,9,13,18] },
-  { id: "IRN", nome: "Irã", nums: [2,3,6,7,11,13] },
-  { id: "NZL", nome: "Nova Zelândia", nums: [3,4,5,6,7,9,13,14,15,19] },
-  { id: "ESP", nome: "Espanha", nums: [6,13] },
-  { id: "CPV", nome: "Cabo Verde", nums: [1,3,4,7,8,11,12,13,16,20] },
-  { id: "KSA", nome: "Arábia Saudita", nums: [5,11,12,15,16] },
-  { id: "URU", nome: "Uruguai", nums: [2,4,5,6,8,9,10,11,19,20] },
-  { id: "FRA", nome: "França", nums: [3,5,9,13,15,16,19,20] },
-  { id: "SEN", nome: "Senegal", nums: [3,19] },
-  { id: "IRQ", nome: "Iraque", nums: [1,3,6,7,8,10,11,13,15,16,17,18] },
-  { id: "NOR", nome: "Noruega", nums: [4,5,9,12,14,18,20] },
-  { id: "ALG", nome: "Argélia", nums: [2,3,5,7,20] },
-  { id: "AUT", nome: "Áustria", nums: [2,10,11,12,13,18,20] },
-  { id: "JOR", nome: "Jordânia", nums: [2,7,11,13,16] },
-  { id: "POR", nome: "Portugal", nums: [3,7,14] },
-  { id: "COD", nome: "Congo", nums: [1,2,3,7,8,9,12,14,16,17,18] },
-  { id: "UZB", nome: "Uzbequistão", nums: [1,4,5,7,8,10,11,12,13,14,15,16,18] },
-  { id: "COL", nome: "Colômbia", nums: [1,2,4,10,11,12,13,14,15,16,18,19] },
-  { id: "ENG", nome: "Inglaterra", nums: [6,17] },
-  { id: "CRO", nome: "Croácia", nums: [1,6,8,16,17] },
-  { id: "GHA", nome: "Gana", nums: [1,4,12,13,16,17,20] },
-  { id: "PAN", nome: "Panamá", nums: [1,2,4,6,8,10,11,19] },
-  { id: "FWC", nome: "FIFA World Cup History", nums: [3,7,9,10,11,12,14,16,17] },
-  { id: "CC", nome: "CC — Coca Cola", nums: [2,3,4,5,6] },
+  { id: "MEX", nome: "México", nums: [{v:12}] },
+  { id: "RSA", nome: "África do Sul", nums: [{v:16}] },
+  { id: "KOR", nome: "Coreia do Sul", nums: [{v:2},{v:6}] },
+  { id: "CZE", nome: "República Tcheca", nums: [{v:2},{v:3},{v:17},{v:18},{v:19}] },
+  { id: "BIH", nome: "Bósnia-Herzegovina", nums: [{v:1},{v:2},{v:3},{v:5},{v:13}] },
+  { id: "QAT", nome: "Catar", nums: [{v:19}] },
+  { id: "SUI", nome: "Suíça", nums: [{v:4},{v:9},{v:17},{v:18},{v:19}] },
+  { id: "BRA", nome: "Brasil", nums: [{v:6},{v:8},{v:13},{v:16},{v:17}] },
+  { id: "MAR", nome: "Marrocos", nums: [{v:4}] },
+  { id: "HAI", nome: "Haiti", nums: [{v:1},{v:4},{v:8},{v:12},{v:14},{v:18}] },
+  { id: "SCO", nome: "Escócia", nums: [{v:1}] },
+  { id: "USA", nome: "Estados Unidos", nums: [{v:1},{v:4},{v:5},{v:7},{v:8},{v:11},{v:12}] },
+  { id: "PAR", nome: "Paraguai", nums: [{v:9}] },
+  { id: "AUS", nome: "Austrália", nums: [{v:16}] },
+  { id: "TUR", nome: "Turquia", nums: [{v:2},{v:6},{v:7},{v:8},{v:19},{v:20}] },
+  { id: "GER", nome: "Alemanha", nums: [{v:10}] },
+  { id: "CUW", nome: "Curaçao", nums: [{v:13}] },
+  { id: "CIV", nome: "Costa do Marfim", nums: [{v:1},{v:3}] },
+  { id: "ECU", nome: "Equador", nums: [{v:8},{v:16}] },
+  { id: "NED", nome: "Holanda", nums: [{v:7},{v:18},{v:20}] },
+  { id: "JPN", nome: "Japão", nums: [{v:12}] },
+  { id: "SWE", nome: "Suécia", nums: [{v:1},{v:10},{v:13},{v:14},{v:16},{v:17},{v:19}] },
+  { id: "TUN", nome: "Tunísia", nums: [{v:1},{v:2},{v:4},{v:6},{v:8},{v:20}] },
+  { id: "EGY", nome: "Egito", nums: [{v:13},{v:18}] },
+  { id: "IRN", nome: "Irã", nums: [{v:6},{v:13}] },
+  { id: "NZL", nome: "Nova Zelândia", nums: [{v:4},{v:5},{v:6},{v:7},{v:9},{v:18}] },
+  { id: "CPV", nome: "Cabo Verde", nums: [{v:1},{v:3},{v:7},{v:11},{v:16}] },
+  { id: "KSA", nome: "Arábia Saudita", nums: [{v:3}] },
+  { id: "URU", nome: "Uruguai", nums: [{v:6},{v:8},{v:9},{v:11}] },
+  { id: "FRA", nome: "França", nums: [{v:3},{v:5},{v:9},{v:20}] },
+  { id: "IRQ", nome: "Iraque", nums: [{v:1},{v:7},{v:8},{v:10},{v:11},{v:15},{v:16},{v:17},{v:18}] },
+  { id: "NOR", nome: "Noruega", nums: [{v:5},{v:14}] },
+  { id: "ALG", nome: "Argélia", nums: [{v:20}] },
+  { id: "AUT", nome: "Áustria", nums: [{v:2},{v:10},{v:12},{v:20}] },
+  { id: "JOR", nome: "Jordânia", nums: [{v:2},{v:7},{v:11}] },
+  { id: "POR", nome: "Portugal", nums: [{v:14}] },
+  { id: "COD", nome: "Congo", nums: [{v:1},{v:3},{v:12},{v:14},{v:18}] },
+  { id: "UZB", nome: "Uzbequistão", nums: [{v:1},{v:4},{v:5},{v:10},{v:11},{v:14},{v:15},{v:16}] },
+  { id: "COL", nome: "Colômbia", nums: [{v:1},{v:14},{v:16},{v:18}] },
+  { id: "ENG", nome: "Inglaterra", nums: [{v:13}] },
+  { id: "CRO", nome: "Croácia", nums: [{v:8},{v:17}] },
+  { id: "GHA", nome: "Gana", nums: [{v:1},{v:17}] },
+  { id: "PAN", nome: "Panamá", nums: [{v:1},{v:4},{v:19}] },
+  { id: "FWC", nome: "FIFA World Cup History", nums: [{v:3},{v:7},{v:10},{v:11},{v:14},{v:16},{v:17}] },
+  { id: "CC", nome: "CC — Coca Cola", nums: [{v:4,label:"4 - Santiago Gimenez"},{v:6,label:"6 - Frederico Valverde"}] },
 ];
 
 const totalAlbum = dados.reduce((acc, s) => acc + s.nums.length, 0);
@@ -390,20 +165,12 @@ async function salvarNuvem() {
   try {
     const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': API_KEY
-      },
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
       body: JSON.stringify({ marcados })
     });
-    if (r.ok) {
-      setStatus('✓ Sincronizado', 'ok');
-    } else {
-      setStatus('⚠ Erro ao salvar', 'err');
-    }
-  } catch(e) {
-    setStatus('⚠ Sem conexão', 'err');
-  }
+    if (r.ok) { setStatus('✓ Sincronizado', 'ok'); }
+    else { setStatus('⚠ Erro ao salvar', 'err'); }
+  } catch(e) { setStatus('⚠ Sem conexão', 'err'); }
 }
 
 function agendarSalvar() {
@@ -414,7 +181,7 @@ function agendarSalvar() {
 function atualizarCard(selId, cardEl, countEl) {
   const sel = dados.find(s => s.id === selId);
   if (!sel) return;
-  const marcadosCount = sel.nums.filter(n => marcados[selId + '_' + n]).length;
+  const marcadosCount = sel.nums.filter(n => marcados[selId + '_' + n.v]).length;
   const restando = sel.nums.length - marcadosCount;
   countEl.textContent = restando === 0 ? '✓ ok!' : restando + ' fig.';
   cardEl.classList.toggle('completa', restando === 0);
@@ -424,51 +191,38 @@ function atualizarCard(selId, cardEl, countEl) {
 function criarCard(s) {
   const card = document.createElement('div');
   card.className = 'card';
-
   const header = document.createElement('div');
   header.className = 'card-header';
-
   const flag = document.createElement('span');
   flag.className = 'flag';
   flag.textContent = s.id + ' — ' + s.nome;
-
   const count = document.createElement('span');
   count.className = 'count';
-
   header.appendChild(flag);
   header.appendChild(count);
   card.appendChild(header);
-
   const numsDiv = document.createElement('div');
   numsDiv.className = 'nums';
-
   s.nums.forEach(n => {
     const span = document.createElement('span');
-    span.className = 'num';
-    span.textContent = n;
-    if (marcados[s.id + '_' + n]) span.classList.add('marcado');
+    const texto = n.label || String(n.v);
+    span.className = 'num' + (texto.length > 3 ? ' longo' : '');
+    span.textContent = texto;
+    if (marcados[s.id + '_' + n.v]) span.classList.add('marcado');
     span.addEventListener('click', () => {
-      const key = s.id + '_' + n;
-      if (marcados[key]) {
-        delete marcados[key];
-        span.classList.remove('marcado');
-      } else {
-        marcados[key] = true;
-        span.classList.add('marcado');
-      }
+      const key = s.id + '_' + n.v;
+      if (marcados[key]) { delete marcados[key]; span.classList.remove('marcado'); }
+      else { marcados[key] = true; span.classList.add('marcado'); }
       atualizarCard(s.id, card, count);
       agendarSalvar();
     });
     numsDiv.appendChild(span);
   });
-
   card.appendChild(numsDiv);
-
   const badge = document.createElement('p');
   badge.className = 'completa-badge';
   badge.textContent = '✓ Todas conseguidas!';
   card.appendChild(badge);
-
   atualizarCard(s.id, card, count);
   return card;
 }
